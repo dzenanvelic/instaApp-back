@@ -3,7 +3,7 @@ const mongoose = require('mongoose')
 const app = express()
 const dotenv = require('dotenv')
 const morgan = require("morgan")
-const { MONGO_URI } = require('./keys')
+
 const authRouter = require('./routes/auth')
 const postRouter = require('./routes/post')
 const userRouter = require('./routes/user')
@@ -11,7 +11,7 @@ const userRouter = require('./routes/user')
 dotenv.config()
 
 //database connection MONGODB
-mongoose.connect(MONGO_URI,{
+mongoose.connect(process.env.MONGO_URI,{
     useNewUrlParser:true,
     useCreateIndex:true,
     useFindAndModify:false,
@@ -33,7 +33,7 @@ app.use('/user',userRouter)
 
 
 //server running
-const PORT = 5000 
+const PORT = process.env.PORT || 5000 
 app.listen(PORT,()=>{
     console.log(`Server runs on port ${PORT}`)
 })
